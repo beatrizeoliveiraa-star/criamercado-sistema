@@ -16,9 +16,9 @@ export function Layout() {
   return (
     <div className="min-h-dvh md:flex">
       <aside className="hidden md:flex w-56 shrink-0 flex-col border-r borda p-4 gap-1 sticky top-0 h-dvh">
-        <div className="flex items-center gap-2 px-2 pb-5 pt-1">
-          <img src="/icone.svg" alt="" className="size-7" />
-          <span className="font-bold tracking-tight">CRIAMERCADO</span>
+        <div className="px-2 pb-6 pt-2">
+          <img src="/marca/logo-escuro.svg" alt="CRIAMERCADO" className="logo-escuro h-7" />
+          <img src="/marca/logo-claro.svg" alt="CRIAMERCADO" className="logo-claro h-7" />
         </div>
         {MENU.map(({ para, nome, icone: Icone }) => (
           <NavLink
@@ -74,7 +74,7 @@ export function Layout() {
 export function Titulo({ children, direita }: { children: React.ReactNode; direita?: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 mb-5">
-      <h1 className="text-xl md:text-2xl font-bold tracking-tight">{children}</h1>
+      <h1 className="text-xl md:text-2xl">{children}</h1>
       {direita}
     </div>
   );

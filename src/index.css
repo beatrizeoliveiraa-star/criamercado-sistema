@@ -1,27 +1,43 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
+@import "@fontsource-variable/roboto-slab";
 
+/* Tipografias do Guia de Uso da Marca: LOOS NORMAL para títulos, ROBOTO SLAB para textos. */
+@font-face {
+  font-family: "Loos Normal";
+  src: url("./fonts/LoosNormal-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Loos Normal";
+  src: url("./fonts/LoosNormal-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Cores principais e de superfície do guia (branco #EFEFEF, preto #242824, verde #009E3D). */
 @theme {
-  --font-sans: "Inter Variable", system-ui, sans-serif;
-  --color-marca: #0f766e;
-  --color-marca-claro: #ccfbf1;
+  --font-sans: "Roboto Slab Variable", Georgia, serif;
+  --font-titulo: "Loos Normal", "Roboto Slab Variable", sans-serif;
+  --color-marca: #009e3d;
+  --color-marca-escuro: #007a2f;
 }
 
 :root {
-  --fundo: #f7f7f5;
+  --fundo: #f8f8f8;
   --cartao: #ffffff;
-  --borda: #e4e4e0;
-  --texto: #1c1c1a;
-  --texto-2: #62625d;
+  --borda: #dcdcdc;
+  --texto: #242824;
+  --texto-2: #5c655c;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --fundo: #121211;
-    --cartao: #1c1c1b;
-    --borda: #2e2e2c;
-    --texto: #ededea;
-    --texto-2: #a3a39e;
+    --fundo: #242824;
+    --cartao: #2d322d;
+    --borda: #3e473e;
+    --texto: #efefef;
+    --texto-2: #9faa9e;
     color-scheme: dark;
   }
 }
@@ -33,22 +49,42 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+h1, h2, h3 {
+  font-family: var(--font-titulo);
+}
+h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+h2, h3 {
+  font-weight: 500;
+}
+
+.logo-claro { display: none; }
+@media (prefers-color-scheme: dark) {
+  .logo-escuro { display: none; }
+  .logo-claro { display: block; }
+}
+
 @layer components {
-.cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 12px; }
-.texto-2 { color: var(--texto-2); }
-.borda { border-color: var(--borda); }
-.campo {
-  width: 100%; background: var(--cartao); border: 1px solid var(--borda); border-radius: 8px;
-  padding: 8px 10px; font-size: 14px; color: var(--texto);
-}
-.campo:focus { outline: 2px solid var(--color-marca); outline-offset: -1px; }
-.botao {
-  display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
-  font-size: 14px; font-weight: 600; background: var(--color-marca); color: white;
-}
-.botao:disabled { opacity: .5; }
-.botao-2 {
-  display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
-  font-size: 14px; font-weight: 500; border: 1px solid var(--borda); background: var(--cartao);
-}
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 12px; }
+  .texto-2 { color: var(--texto-2); }
+  .borda { border-color: var(--borda); }
+  .campo {
+    width: 100%; background: var(--cartao); border: 1px solid var(--borda); border-radius: 8px;
+    padding: 8px 10px; font-size: 14px; color: var(--texto);
+  }
+  .campo:focus { outline: 2px solid var(--color-marca); outline-offset: -1px; }
+  .botao {
+    display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
+    font-size: 14px; font-weight: 600; background: var(--color-marca); color: #fff;
+  }
+  .botao:hover { background: var(--color-marca-escuro); }
+  .botao:disabled { opacity: .5; }
+  .botao-2 {
+    display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
+    font-size: 14px; font-weight: 500; border: 1px solid var(--borda); background: var(--cartao);
+  }
+  .textura { background: #242824 url("/marca/textura.svg") center / 900px auto repeat; }
 }

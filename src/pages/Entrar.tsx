@@ -24,11 +24,11 @@ export function Entrar() {
   };
 
   return (
-    <div className="min-h-dvh grid place-items-center p-4">
-      <form onSubmit={enviar} className="cartao w-full max-w-sm p-6 flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <img src="/icone.svg" alt="" className="size-8" />
-          <span className="text-lg font-bold tracking-tight">CRIAMERCADO</span>
+    <div className="min-h-dvh grid place-items-center p-4 textura">
+      <form onSubmit={enviar} className="cartao w-full max-w-sm p-6 flex flex-col gap-4 shadow-xl">
+        <div className="pb-2">
+          <img src="/marca/logo-escuro.svg" alt="CRIAMERCADO" className="logo-escuro h-8" />
+          <img src="/marca/logo-claro.svg" alt="CRIAMERCADO" className="logo-claro h-8" />
         </div>
         <label className="text-sm flex flex-col gap-1">
           E-mail

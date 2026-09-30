@@ -1,7 +1,7 @@
 # CRIAMERCADO · sistema
 
 Substitui o Notion da CRIAMERCADO: clientes, leads, propostas, projetos, pedidos a fornecedores e entregas.
-App web que também instala no celular. Projeto completo: [Sistema CRIAMERCADO: projeto](https://claude.ai/code/artifact/384317c5-aaa0-40d7-ab68-731cc0b222f5).
+App web que também instala no celular, com a identidade do Guia de Uso da Marca (verde #009E3D, LOOS NORMAL nos títulos, Roboto Slab nos textos). Projeto completo: [Sistema CRIAMERCADO: projeto](https://claude.ai/code/artifact/384317c5-aaa0-40d7-ab68-731cc0b222f5).
 
 ## Fase 1 (esta versão)
 

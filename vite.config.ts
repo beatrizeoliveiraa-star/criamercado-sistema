@@ -14,7 +14,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["icone.svg"],
+      includeAssets: ["icone.svg", "marca/*.svg"],
       manifest: {
         name: "CRIAMERCADO",
         short_name: "CRIAMERCADO",
@@ -22,8 +22,8 @@ export default defineConfig({
         lang: "pt-BR",
         start_url: "/",
         display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#0F766E",
+        background_color: "#F8F8F8",
+        theme_color: "#009E3D",
         icons: [{ src: "/icone.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
       },
       workbox: { navigateFallback: "/index.html" },
