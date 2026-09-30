@@ -2,9 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { SessaoProvider, useSessao } from "@/lib/sessao";
 import { Carregando, Layout } from "@/components/Layout";
 import { Entrar, SemPapel } from "@/pages/Entrar";
-import { Painel } from "@/pages/Painel";
 import { Leads } from "@/pages/Leads";
-import { NaoFechados } from "@/pages/NaoFechados";
+import { Projetos } from "@/pages/Projetos";
 import { Clientes } from "@/pages/Clientes";
 import { Projeto } from "@/pages/Projeto";
 import { Novo } from "@/pages/Novo";
@@ -17,13 +16,12 @@ function Rotas() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<Painel />} />
-        <Route path="leads" element={<Leads />} />
-        <Route path="nao-fechados" element={<NaoFechados />} />
+        <Route index element={<Leads />} />
+        <Route path="projetos" element={<Projetos />} />
         <Route path="clientes" element={<Clientes />} />
         <Route path="novo" element={<Novo />} />
         <Route path="projetos/:id" element={<Projeto />} />
-        <Route path="*" element={<Painel />} />
+        <Route path="*" element={<Leads />} />
       </Route>
     </Routes>
   );

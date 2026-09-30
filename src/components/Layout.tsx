@@ -1,13 +1,12 @@
 import { NavLink, Outlet } from "react-router";
-import { Building2, CircleOff, Columns3, LayoutDashboard, LogOut, Plus } from "lucide-react";
+import { Building2, Columns3, FolderKanban, LogOut, Plus } from "lucide-react";
 import { dados } from "@/lib/dados";
 import { NOME_PAPEL } from "@/lib/dominio";
 import { useSessao } from "@/lib/sessao";
 
 const MENU = [
-  { para: "/", nome: "Painel", icone: LayoutDashboard },
-  { para: "/leads", nome: "Leads", icone: Columns3 },
-  { para: "/nao-fechados", nome: "Não fechados", icone: CircleOff },
+  { para: "/", nome: "Leads", icone: Columns3 },
+  { para: "/projetos", nome: "Projetos", icone: FolderKanban },
   { para: "/clientes", nome: "Clientes", icone: Building2 },
 ];
 
@@ -55,8 +54,8 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <nav className="md:hidden fixed bottom-0 inset-x-0 border-t borda grid grid-cols-5 text-[11px]" style={{ background: "var(--cartao)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-        {[...MENU.slice(0, 2), { para: "/novo", nome: "Novo", icone: Plus }, ...MENU.slice(2)].map(({ para, nome, icone: Icone }) => (
+      <nav className="md:hidden fixed bottom-0 inset-x-0 border-t borda grid grid-cols-4 text-[11px]" style={{ background: "var(--cartao)", paddingBottom: "env(safe-area-inset-bottom)" }}>
+        {[...MENU.slice(0, 2), { para: "/novo", nome: "Novo lead", icone: Plus }, ...MENU.slice(2)].map(({ para, nome, icone: Icone }) => (
           <NavLink
             key={para}
             to={para}

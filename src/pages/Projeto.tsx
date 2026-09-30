@@ -48,7 +48,7 @@ export function Projeto() {
 
   return (
     <div className="max-w-5xl">
-      <Link to="/leads" className="text-sm texto-2 inline-flex items-center gap-1 mb-3 hover:underline"><ArrowLeft size={14} /> Leads</Link>
+      <Link to={p.status_comercial === "fechado" ? "/projetos" : "/"} className="text-sm texto-2 inline-flex items-center gap-1 mb-3 hover:underline"><ArrowLeft size={14} /> {p.status_comercial === "fechado" ? "Projetos" : "Leads"}</Link>
       <div className="flex flex-wrap items-start justify-between gap-3 mb-5">
         <div>
           <h1 className="text-xl md:text-2xl">{c.nome}</h1>
