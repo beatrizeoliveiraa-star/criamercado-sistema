@@ -1,17 +1,19 @@
 import { NavLink, Outlet } from "react-router";
-import { Building2, Columns3, FolderKanban, LogOut, Plus } from "lucide-react";
+import { Building2, CalendarCheck, Columns3, FolderKanban, LogOut, Plus } from "lucide-react";
 import { dados } from "@/lib/dados";
-import { NOME_PAPEL } from "@/lib/dominio";
+import { NOME_PAPEL, temPapel } from "@/lib/dominio";
 import { useSessao } from "@/lib/sessao";
 
-const MENU = [
+const MENU_BASE = [
   { para: "/", nome: "Leads", icone: Columns3 },
   { para: "/projetos", nome: "Projetos", icone: FolderKanban },
   { para: "/clientes", nome: "Clientes", icone: Building2 },
 ];
+const SUPERMINAS = { para: "/inscricoes", nome: "Superminas", icone: CalendarCheck };
 
 export function Layout() {
   const { usuario } = useSessao();
+  const MENU = temPapel(usuario, "comercial") ? [...MENU_BASE, SUPERMINAS] : MENU_BASE;
   return (
     <div className="min-h-dvh md:flex">
       <aside className="hidden md:flex w-56 shrink-0 flex-col border-r borda p-4 gap-1 sticky top-0 h-dvh">
@@ -54,7 +56,7 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <nav className="md:hidden fixed bottom-0 inset-x-0 border-t borda grid grid-cols-4 text-[11px]" style={{ background: "var(--cartao)", paddingBottom: "env(safe-area-inset-bottom)" }}>
+      <nav className="md:hidden fixed bottom-0 inset-x-0 border-t borda grid text-[11px]" style={{ background: "var(--cartao)", paddingBottom: "env(safe-area-inset-bottom)", gridTemplateColumns: `repeat(${MENU.length + 1}, 1fr)` }}>
         {[...MENU.slice(0, 2), { para: "/novo", nome: "Novo lead", icone: Plus }, ...MENU.slice(2)].map(({ para, nome, icone: Icone }) => (
           <NavLink
             key={para}

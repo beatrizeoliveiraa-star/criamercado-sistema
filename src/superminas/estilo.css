@@ -1,0 +1,187 @@
+@import "@fontsource-variable/roboto-slab";
+
+/* Mesmas fontes do sistema: LOOS NORMAL (títulos) e ROBOTO SLAB (textos).
+   Sem letras largas nem espaçamento extra: títulos com espaçamento normal e linhas juntas. */
+@font-face {
+  font-family: "Loos Normal";
+  src: url("../fonts/LoosNormal-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Loos Normal";
+  src: url("../fonts/LoosNormal-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --fundo: #ebebea;
+  --caixa: #f5f5f4;
+  --preto: #242824;
+  --texto-2: #5c655c;
+  --linha: #b9bdb8;
+  --verde: #009e3d;
+  --verde-escuro: #007a2f;
+  --erro: #b42318;
+  --titulo: "Loos Normal", "Roboto Slab Variable", sans-serif;
+  --texto: "Roboto Slab Variable", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--preto);
+  font-family: var(--texto);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+.largura { width: 100%; max-width: 920px; margin: 0 auto; padding: 0 20px; }
+.bloco { padding: 56px 20px; border-bottom: 2px solid var(--preto); }
+.bloco:last-child { border-bottom: 0; }
+
+h1, h2, h3, .rotulo, .chamada, .botao, .botao-2, .num, .num-grande, .oferta-numero, .oferta-plano, .contador, .subrotulo, label {
+  font-family: var(--titulo);
+}
+h1, h2 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  margin: 0;
+}
+h1 { font-size: clamp(32px, 6vw, 52px); max-width: 16ch; }
+h2 { font-size: clamp(28px, 5vw, 44px); }
+h3 { font-size: 19px; font-weight: 700; text-transform: uppercase; margin: 0; line-height: 1.2; }
+
+.quadrado { display: inline-block; width: 8px; height: 8px; background: var(--verde); margin-right: 8px; vertical-align: 1px; }
+.chamada { color: var(--verde); font-weight: 700; font-size: 15px; text-transform: uppercase; margin: 0 0 12px; }
+.rotulo { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--texto-2); margin: 0 0 8px; padding: 0; }
+.suave { color: var(--texto-2); }
+
+/* ---------------------------------------------------------------- topo */
+.topo { border-bottom: 2px solid var(--preto); }
+.topo-linha { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 20px; }
+.logo { height: 30px; width: auto; }
+.selo-topo { margin: 0; font-family: var(--titulo); font-weight: 700; font-size: 13px; text-transform: uppercase; text-align: right; }
+
+/* ---------------------------------------------------------------- herói */
+.lide { font-size: 19px; max-width: 40em; margin: 24px 0 28px; }
+.heroi-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.prazo { margin: 0; font-family: var(--titulo); font-weight: 700; font-size: 14px; text-transform: uppercase; }
+.oferta {
+  margin-top: 48px; background: #fff; padding: 32px; max-width: 560px;
+  box-shadow: 10px 10px 0 var(--preto);
+}
+.oferta-numero { margin: 0; font-size: clamp(48px, 9vw, 72px); font-weight: 700; line-height: 1; color: var(--verde); }
+.oferta-plano { margin: 4px 0 0; font-size: 24px; font-weight: 700; text-transform: uppercase; }
+
+/* ---------------------------------------------------------------- listas */
+.itens { list-style: none; padding: 0; margin: 28px 0 0; border-top: 2px solid var(--preto); }
+.itens li { display: flex; gap: 24px; padding: 20px 0; border-bottom: 2px solid var(--preto); }
+.itens p { margin: 4px 0 0; }
+.num { color: var(--verde); font-weight: 700; font-size: 22px; line-height: 1.1; min-width: 32px; }
+.destaque { border-left: 6px solid var(--verde); padding: 4px 0 4px 18px; margin: 32px 0 0; font-size: 18px; }
+.passos { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.passos li { font-family: var(--titulo); font-weight: 700; text-transform: uppercase; font-size: 17px; line-height: 1.2; }
+.num-grande { display: block; color: var(--verde); font-size: 56px; line-height: 1; margin-bottom: 8px; }
+
+/* ---------------------------------------------------------------- botões */
+.botao, .botao-2 {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 12px 20px; font-size: 15px; font-weight: 700; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; border-radius: 0;
+}
+.botao { background: var(--verde); color: #fff; border: 2px solid var(--verde); }
+.botao:hover { background: var(--verde-escuro); border-color: var(--verde-escuro); }
+.botao:disabled { opacity: .55; cursor: default; }
+.botao-2 { background: transparent; color: var(--preto); border: 2px solid var(--preto); }
+.botao-2:hover { background: #fff; }
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+
+/* ---------------------------------------------------------------- formulário */
+.form-topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.contador { margin: 0; font-weight: 700; font-size: 14px; }
+.progresso { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin: 20px 0 28px; }
+.progresso span { height: 6px; background: var(--linha); transition: background .2s; }
+.progresso span.feito { background: var(--verde); }
+
+.caixa { background: var(--caixa); border: 2px solid var(--preto); padding: 28px; }
+fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+legend { margin-bottom: 20px; }
+label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; }
+input, select {
+  font: 400 17px var(--texto); color: var(--preto);
+  background: #fff; border: 1.5px solid var(--preto); border-radius: 0;
+  padding: 12px 14px; min-height: 50px; width: 100%;
+}
+input::placeholder { color: #8a918a; }
+input[aria-invalid="true"] { border-color: var(--erro); box-shadow: inset 0 0 0 1px var(--erro); }
+.linha { display: flex; gap: 20px; }
+.cresce { flex: 1; min-width: 0; }
+.uf { width: 110px; }
+.escondido { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.subrotulo { margin: 0; font-size: 14px; font-weight: 700; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1.5px solid var(--linha); }
+.grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 300px; overflow-y: auto; padding: 2px; }
+.grade.horas { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); max-height: none; }
+.opcao {
+  font: 400 15px var(--texto); color: var(--preto); background: #fff;
+  border: 1.5px solid var(--preto); min-height: 52px; padding: 8px; cursor: pointer; text-align: center; line-height: 1.25;
+}
+.opcao:hover { background: #e3f3e8; }
+.opcao[aria-checked="true"] { background: var(--verde); border-color: var(--verde); color: #fff; font-weight: 600; }
+.aceite { flex-direction: row; align-items: flex-start; gap: 10px; font: 400 15px var(--texto); text-transform: none; padding-top: 16px; border-top: 1.5px solid var(--linha); }
+.aceite input { width: 20px; height: 20px; min-height: 0; margin: 2px 0 0; accent-color: var(--verde); flex: none; }
+
+.erro { color: var(--erro); font-size: 15px; margin: 20px 0 0; }
+.acoes { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; }
+.acoes .botao { margin-left: auto; }
+
+/* ---------------------------------------------------------------- pronto */
+.caixa.pronto { padding: 0; }
+.pronto:focus { outline: none; }
+.pronto-topo { background: var(--verde); color: #fff; padding: 32px 28px; }
+.pronto-topo h2 { margin: 16px 0 12px; }
+.pronto-topo p { margin: 0; }
+.pronto-empresa { font-weight: 700; }
+.pronto-corpo { padding: 28px; }
+.cupom { display: flex; border: 2px solid var(--preto); background: #fff; }
+.cupom span { flex: 1; padding: 16px 20px; font: 700 clamp(16px, 4.4vw, 30px) var(--titulo); white-space: nowrap; overflow-x: auto; }
+.cupom button { border: 0; border-left: 2px solid var(--preto); background: var(--caixa); font: 700 14px var(--titulo); text-transform: uppercase; padding: 0 18px; cursor: pointer; }
+.acoes-agenda { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0 20px; }
+.letra-miuda { font-size: 13px; color: var(--texto-2); border-top: 1.5px solid var(--linha); padding-top: 16px; margin-bottom: 0; }
+
+/* ---------------------------------------------------------------- rodapé */
+.rodape { background: var(--preto); color: #efefef; }
+.rodape-linha { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 48px; padding-bottom: 48px; flex-wrap: wrap; }
+.rodape-frase { font: 700 24px var(--titulo); text-transform: uppercase; margin: 0 0 20px; }
+.rodape-contato { display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+.rodape-contato a { text-decoration: none; }
+.rodape-contato a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .bloco { padding: 40px 16px; }
+  .largura { padding-left: 16px; padding-right: 16px; }
+  .selo-topo { font-size: 11px; max-width: 14em; }
+  .logo { height: 24px; }
+  .caixa { padding: 20px 16px; }
+  .caixa.pronto { padding: 0; }
+  .cupom span { padding: 14px; }
+  .cupom button { padding: 0 12px; }
+  .linha { flex-direction: column; }
+  .uf { width: 100%; }
+  .grade { grid-template-columns: 1fr 1fr; }
+  .passos { grid-template-columns: 1fr; }
+  .oferta { padding: 24px; box-shadow: 6px 6px 0 var(--preto); }
+  .pronto-topo, .pronto-corpo { padding: 24px 16px; }
+  .acoes-agenda a { flex: 1; }
+}

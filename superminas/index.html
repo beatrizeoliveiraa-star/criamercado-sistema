@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#009E3D" />
+    <link rel="icon" type="image/svg+xml" href="/icone.svg" />
+    <title>10% OFF no PLENO 180 · CRIAMERCADO na SUPERMINAS 2026</title>
+    <meta name="description" content="Agende sua call de diagnóstico com a CRIAMERCADO e garanta 10% de desconto no PLENO 180." />
+  </head>
+  <body>
+    <header class="topo">
+      <div class="largura topo-linha">
+        <img src="/marca/logo-escuro.svg" alt="CRIAMERCADO" class="logo" />
+        <p class="selo-topo"><span class="quadrado"></span>Superminas 2026 · Convite exclusivo</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="largura bloco heroi">
+        <p class="chamada"><span class="quadrado"></span>O plano para 2027</p>
+        <h1>Seu supermercado entra em 2027 com projeto — ou com improviso?</h1>
+        <p class="lide">
+          Você passou pelo nosso stand na Superminas. Agende agora sua call de diagnóstico com a equipe
+          CRIAMERCADO e garanta <strong>10% de desconto no PLENO 180</strong>, condição exclusiva da feira.
+        </p>
+        <div class="heroi-acoes">
+          <a href="#agendar" class="botao">Quero agendar minha call <span aria-hidden="true">↓</span></a>
+          <p class="prazo">Agende até 30/10/2026</p>
+        </div>
+
+        <div class="oferta">
+          <p class="rotulo">Condição exclusiva</p>
+          <p class="oferta-numero">10% OFF</p>
+          <p class="oferta-plano">no PLENO 180</p>
+        </div>
+      </section>
+
+      <section class="largura bloco">
+        <h2>O que é o PLENO 180</h2>
+        <ol class="itens">
+          <li><span class="num">01</span><div><h3>Diagnóstico técnico da loja</h3><p>Olhamos a loja, os números e a circulação dos clientes.</p></div></li>
+          <li><span class="num">02</span><div><h3>Layout e setorização</h3><p>Cada setor no lugar certo, pensando em venda e fluxo.</p></div></li>
+          <li><span class="num">03</span><div><h3>Renderização 3D</h3><p>Veja sua loja pronta antes de investir.</p></div></li>
+          <li><span class="num">04</span><div><h3>Projeto executivo detalhado</h3><p>Para obra e montagem.</p></div></li>
+        </ol>
+        <p class="destaque">Quer que a gente conduza a obra até a inauguração? Conheça também o <strong>PLENO 360</strong> na call.</p>
+      </section>
+
+      <section class="largura bloco">
+        <p class="chamada"><span class="quadrado"></span>Simples e direto</p>
+        <h2>Como funciona</h2>
+        <ol class="passos">
+          <li><span class="num-grande">1</span>Cadastre sua empresa</li>
+          <li><span class="num-grande">2</span>Escolha dia e horário da call</li>
+          <li><span class="num-grande">3</span>Receba seu cupom na hora</li>
+        </ol>
+      </section>
+
+      <section class="largura bloco" id="agendar">
+        <div class="form-topo">
+          <div>
+            <p class="chamada"><span class="quadrado"></span>Sua call de diagnóstico</p>
+            <h2>Vamos começar.</h2>
+          </div>
+          <p class="contador" id="contador">1/3</p>
+        </div>
+        <div class="progresso" aria-hidden="true"><span></span><span></span><span></span></div>
+
+        <form id="form" class="caixa" novalidate>
+          <!-- honeypot: pessoas não veem este campo -->
+          <input type="text" name="site" tabindex="-1" autocomplete="off" class="escondido" aria-hidden="true" />
+
+          <fieldset data-etapa="1">
+            <legend class="rotulo">Etapa 1 · Empresa</legend>
+            <label>Nome da empresa<input name="empresa" required autocomplete="organization" /></label>
+            <label>CNPJ<input name="cnpj" required inputmode="numeric" placeholder="00.000.000/0000-00" maxlength="18" /></label>
+            <div class="linha">
+              <label class="cresce">Cidade<input name="cidade" required autocomplete="address-level2" /></label>
+              <label class="uf">UF<select name="uf" id="uf"></select></label>
+            </div>
+          </fieldset>
+
+          <fieldset data-etapa="2" hidden>
+            <legend class="rotulo">Etapa 2 · Contato</legend>
+            <label>Nome do sócio / responsável<input name="responsavel" required autocomplete="name" /></label>
+            <div class="linha">
+              <label class="cresce">Celular / WhatsApp<input name="whatsapp" required type="tel" inputmode="tel" placeholder="(00) 00000-0000" maxlength="15" autocomplete="tel-national" /></label>
+              <label class="cresce">E-mail<input name="email" required type="email" autocomplete="email" /></label>
+            </div>
+          </fieldset>
+
+          <fieldset data-etapa="3" hidden>
+            <legend class="rotulo">Etapa 3 · Agendar a call</legend>
+            <p class="subrotulo">Escolha o dia</p>
+            <div class="grade" id="dias" role="radiogroup" aria-label="Dia da call"><p class="suave">Carregando horários...</p></div>
+            <div id="bloco-horas" hidden>
+              <p class="subrotulo">Escolha o horário</p>
+              <div class="grade horas" id="horas" role="radiogroup" aria-label="Horário da call"></div>
+            </div>
+            <label class="aceite"><input type="checkbox" name="consentimento" required /> Autorizo a CRIAMERCADO a usar meus dados para contato sobre esta proposta.</label>
+          </fieldset>
+
+          <p class="erro" id="erro" role="alert" hidden></p>
+
+          <div class="acoes">
+            <button type="button" class="botao-2" id="voltar" hidden><span aria-hidden="true">←</span> Voltar</button>
+            <button type="submit" class="botao" id="avancar">Continuar <span aria-hidden="true">→</span></button>
+          </div>
+        </form>
+
+        <div id="pronto" class="caixa pronto" hidden tabindex="-1">
+          <div class="pronto-topo">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+            <h2>Call agendada.</h2>
+            <p class="pronto-empresa" id="pronto-empresa"></p>
+            <p id="pronto-quando"></p>
+          </div>
+          <div class="pronto-corpo">
+            <div id="bloco-cupom">
+              <p class="rotulo">Seu cupom exclusivo</p>
+              <div class="cupom">
+                <span id="cupom"></span>
+                <button type="button" id="copiar">Copiar</button>
+              </div>
+            </div>
+            <div class="acoes-agenda">
+              <a class="botao" id="ics" download="call-criamercado.ics">Adicionar à agenda</a>
+              <a class="botao-2" id="google" target="_blank" rel="noopener">Google Agenda ↗</a>
+            </div>
+            <p>O link da videochamada será enviado para o seu WhatsApp e e-mail. Traga para a call quem decide com você: sócio, gerente, quem cuida do caixa.</p>
+            <p class="letra-miuda" id="regras">10% de desconto no PLENO 180 para a empresa (CNPJ) cadastrada, com call agendada até 30/10/2026 e contratação até 30/11/2026. Um cupom por CNPJ. Não cumulativo com outras condições.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <div class="largura rodape-linha">
+        <div>
+          <p class="rodape-frase">Pra mudar histórias.</p>
+          <img src="/marca/logo-claro.svg" alt="CRIAMERCADO" class="logo" />
+        </div>
+        <div class="rodape-contato">
+          <a href="https://www.criamercado.com.br">www.criamercado.com.br</a>
+          <a href="https://instagram.com/criamercado">@criamercado</a>
+          <a href="https://wa.me/5532984069195">(32) 98406-9195</a>
+          <span>Muriaé · MG</span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/superminas/main.ts"></script>
+  </body>
+</html>

@@ -9,6 +9,15 @@ export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
+  build: {
+    // Duas páginas: o sistema (index.html) e a página pública da Superminas.
+    rollupOptions: {
+      input: {
+        sistema: fileURLToPath(new URL("./index.html", import.meta.url)),
+        superminas: fileURLToPath(new URL("./superminas/index.html", import.meta.url)),
+      },
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -26,7 +35,7 @@ export default defineConfig({
         theme_color: "#009E3D",
         icons: [{ src: "/icone.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
       },
-      workbox: { navigateFallback: "/index.html" },
+      workbox: { navigateFallback: "/index.html", navigateFallbackDenylist: [/^\/superminas/] },
     }),
   ],
   test: {

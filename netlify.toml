@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Página pública da Superminas (o QR do folder aponta para cá).
+[[redirects]]
+  from = "/superminas"
+  to = "/superminas/index.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

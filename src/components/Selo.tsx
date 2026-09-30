@@ -1,6 +1,6 @@
-import type { EtapaStatus, PedidoStatus, StatusComercial } from "@/lib/dominio";
+import type { EtapaStatus, InscricaoStatus, PedidoStatus, StatusComercial } from "@/lib/dominio";
 
-type Qualquer = EtapaStatus | PedidoStatus | StatusComercial;
+type Qualquer = EtapaStatus | PedidoStatus | StatusComercial | InscricaoStatus;
 
 const COR: Record<Qualquer, string> = {
   nao_iniciada: "bg-stone-500/10 text-stone-600 dark:text-stone-300",
@@ -14,6 +14,11 @@ const COR: Record<Qualquer, string> = {
   nao_concluida: "bg-red-500/15 text-red-700 dark:text-red-300",
   follow_up: "bg-orange-500/15 text-orange-700 dark:text-orange-300",
   fechado: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  agendada: "bg-sky-500/15 text-sky-700 dark:text-sky-300",
+  realizada: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  nao_compareceu: "bg-red-500/15 text-red-700 dark:text-red-300",
+  cancelada: "bg-stone-500/10 text-stone-500",
+  virou_lead: "bg-violet-500/15 text-violet-700 dark:text-violet-300",
 };
 
 export function Selo({ status, texto }: { status: Qualquer; texto: string }) {

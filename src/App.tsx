@@ -7,6 +7,8 @@ import { Projetos } from "@/pages/Projetos";
 import { Clientes } from "@/pages/Clientes";
 import { Projeto } from "@/pages/Projeto";
 import { Novo } from "@/pages/Novo";
+import { Superminas } from "@/pages/Superminas";
+import { InscricaoFicha } from "@/pages/InscricaoFicha";
 
 function Rotas() {
   const { pronto, usuario } = useSessao();
@@ -21,6 +23,8 @@ function Rotas() {
         <Route path="clientes" element={<Clientes />} />
         <Route path="novo" element={<Novo />} />
         <Route path="projetos/:id" element={<Projeto />} />
+        <Route path="inscricoes" element={<Superminas />} />
+        <Route path="inscricoes/:id" element={<InscricaoFicha />} />
         <Route path="*" element={<Leads />} />
       </Route>
     </Routes>

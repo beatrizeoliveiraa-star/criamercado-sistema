@@ -220,3 +220,46 @@ export function dataCurta(iso: string | null) {
 export function lugar(c: Pick<Cliente, "cidade" | "uf">) {
   return [c.cidade, c.uf].filter(Boolean).join("/");
 }
+
+// ---------------------------------------------------------------- Superminas
+
+export type InscricaoStatus = "agendada" | "realizada" | "nao_compareceu" | "cancelada" | "virou_lead";
+
+export interface Inscricao {
+  id: string;
+  origem: string | null;
+  empresa: string;
+  cnpj: string;
+  cidade: string | null;
+  uf: string | null;
+  responsavel: string;
+  whatsapp: string;
+  email: string;
+  call_em: string;
+  cupom: string | null;
+  status: InscricaoStatus;
+  link_call: string | null;
+  recebeu_faturamento: boolean;
+  recebeu_setores: boolean;
+  recebeu_video: boolean;
+  observacoes: string | null;
+  projeto_id: string | null;
+  criado_em: string;
+}
+
+export interface Envio {
+  id: number;
+  canal: "whatsapp" | "email";
+  tipo: string;
+  texto: string;
+  usuario: string | null;
+  em: string;
+}
+
+export const NOME_INSCRICAO_STATUS: Record<InscricaoStatus, string> = {
+  agendada: "Agendada",
+  realizada: "Call feita",
+  nao_compareceu: "Não compareceu",
+  cancelada: "Cancelada",
+  virou_lead: "Virou lead",
+};

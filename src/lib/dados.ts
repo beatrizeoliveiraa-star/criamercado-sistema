@@ -2,7 +2,9 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type {
   Cliente,
   ClientePrivado,
+  Envio,
   Etapa,
+  Inscricao,
   Projeto,
   ProjetoCompleto,
   ProjetoResumo,
@@ -23,11 +25,17 @@ export interface Dados {
   atualizarProjeto(id: string, campos: Partial<Projeto>): Promise<void>;
   atualizarEtapa(id: string, campos: Partial<Pick<Etapa, "status" | "data" | "observacao">>): Promise<void>;
   criarProjeto(novo: NovoProjeto): Promise<string>;
+  inscricoes(): Promise<Inscricao[]>;
+  inscricao(id: string): Promise<{ inscricao: Inscricao; envios: Envio[] }>;
+  atualizarInscricao(id: string, campos: Partial<Inscricao>): Promise<void>;
+  registrarEnvio(id: string, canal: Envio["canal"], tipo: string, texto: string): Promise<void>;
+  /** Envia pelo servidor (função enviar-email). Falha se o e-mail ainda não foi configurado. */
+  enviarEmail(id: string, tipo: string, assunto: string, texto: string): Promise<void>;
 }
 
 export interface NovoProjeto {
   cliente_id?: string;
-  cliente?: Pick<Cliente, "nome" | "cidade" | "uf" | "telefone" | "email">;
+  cliente?: Pick<Cliente, "nome" | "cidade" | "uf" | "telefone" | "email"> & Partial<Pick<Cliente, "cnpj" | "contato_nome">>;
   projeto: Pick<Projeto, "plano" | "valor_proposta_centavos" | "data_apresentacao">;
 }
 
@@ -125,6 +133,39 @@ function dadosSupabase(sb: SupabaseClient): Dados {
         await sb.from("projetos").insert({ ...novo.projeto, cliente_id: clienteId, titulo }).select("id").single(),
       ) as { id: string };
       return p.id;
+    },
+
+    async inscricoes() {
+      return check(await sb.from("inscricoes").select("*").order("call_em")) as Inscricao[];
+    },
+
+    async inscricao(id) {
+      const [inscricao, envios] = await Promise.all([
+        sb.from("inscricoes").select("*").eq("id", id).single().then(check),
+        sb.from("inscricao_envios").select("*, usuario:usuarios(nome)").eq("inscricao_id", id).order("em", { ascending: false }).then(check),
+      ]);
+      return {
+        inscricao: inscricao as Inscricao,
+        envios: (envios as { usuario: { nome: string } | null }[]).map((e) => ({ ...(e as object), usuario: e.usuario?.nome ?? null })) as Envio[],
+      };
+    },
+
+    async atualizarInscricao(id, campos) {
+      const r = check(await sb.from("inscricoes").update(campos).eq("id", id).select("id"));
+      if (!r?.length) throw new Error("Só o comercial mexe nas calls da Superminas.");
+    },
+
+    async registrarEnvio(id, canal, tipo, texto) {
+      check(await sb.from("inscricao_envios").insert({ inscricao_id: id, canal, tipo, texto }));
+    },
+
+    async enviarEmail(id, tipo, assunto, texto) {
+      const { data, error } = await sb.functions.invoke("enviar-email", { body: { inscricao_id: id, tipo, assunto, texto } });
+      if (error) {
+        const corpo = await (error as { context?: Response }).context?.json?.().catch(() => null);
+        throw new Error(corpo?.erro ?? "O envio de e-mail ainda não está ligado no servidor. Use \"Abrir no meu e-mail\".");
+      }
+      if (data?.erro) throw new Error(data.erro);
     },
   };
 }

@@ -5,7 +5,9 @@ import {
   type Etapa,
   type EtapaStatus,
   type EtapaTipo,
+  type Envio,
   type Historico,
+  type Inscricao,
   type Pedido,
   type Projeto,
   type Usuario,
@@ -68,6 +70,24 @@ semear("SUP CENTRO", "Ponte Nova", { plano: "pleno_360", status_comercial: "fech
     { fornecedor: "IMF", status: "concluido", codigo: "4521", entrega_prevista: "2026-10-30" },
     { fornecedor: "Gelopar", status: "sem_pedido" },
   ]);
+
+// Calls da Superminas: daqui a 1, 2 e 6 dias, às 10h/15h de Brasília.
+const emDias = (d: number, h: number) => {
+  const x = new Date(Date.now() + d * 86_400_000);
+  const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(x);
+  return new Date(`${ymd}T${String(h).padStart(2, "0")}:00:00-03:00`).toISOString();
+};
+const inscricoes: Inscricao[] = [
+  ["SUPERMERCADO SÃO JOSÉ", "11222333000181", "Carangola", "José Carlos Moreira", "32988881111", "jose@supsaojose.com.br", emDias(1, 10), true, false, false],
+  ["MERCADINHO DA PRAÇA", "11444777000161", "Cataguases", "Márcia Lopes", "32977772222", "marcia@mercadinhodapraca.com", emDias(2, 15), false, false, false],
+  ["SUP BOA VIAGEM", "45723174000110", "Leopoldina", "Rafael Andrade", "32966663333", "rafael@boaviagem.com.br", emDias(6, 11), true, true, true],
+].map(([empresa, cnpj, cidade, responsavel, whatsapp, email, call_em, fat, set, vid], n) => ({
+  id: novoId(), origem: "superminas-folder", empresa, cnpj, cidade, uf: "MG", responsavel, whatsapp, email, call_em,
+  cupom: `SUPERMINAS10-${["K7PQ", "M3XA", "R9TE"][n]}`, status: "agendada", link_call: null,
+  recebeu_faturamento: fat, recebeu_setores: set, recebeu_video: vid, observacoes: null, projeto_id: null,
+  criado_em: new Date(Date.now() - (3 - n) * 86_400_000).toISOString(),
+})) as Inscricao[];
+const envios: (Envio & { inscricao_id: string })[] = [];
 
 const pausa = () => new Promise((r) => setTimeout(r, 120));
 
@@ -141,6 +161,25 @@ export function dadosDemo(): Dados {
         etapas.push({ id: novoId(), projeto_id: proj.id, tipo, status: "nao_iniciada", data: null, observacao: null });
       }
       return proj.id;
+    },
+    async inscricoes() {
+      await pausa();
+      return inscricoes.map((i) => ({ ...i })).sort((a, b) => a.call_em.localeCompare(b.call_em));
+    },
+    async inscricao(id) {
+      await pausa();
+      const i = inscricoes.find((x) => x.id === id);
+      if (!i) throw new Error("Inscrição não encontrada.");
+      return { inscricao: { ...i }, envios: envios.filter((e) => e.inscricao_id === id).slice().reverse() };
+    },
+    async atualizarInscricao(id, campos) {
+      Object.assign(inscricoes.find((x) => x.id === id)!, campos);
+    },
+    async registrarEnvio(id, canal, tipo, texto) {
+      envios.push({ id: envios.length + 1, inscricao_id: id, canal, tipo, texto, usuario: eu.nome, em: new Date().toISOString() });
+    },
+    async enviarEmail() {
+      throw new Error("Modo demonstração: o envio de e-mail pelo servidor não está ligado. Use \"Abrir no meu e-mail\".");
     },
   };
 }
