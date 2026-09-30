@@ -100,6 +100,26 @@ const ETAPAS = {
   finalizacao: "Finalização",
 };
 
+const ORDEM_ETAPAS = [
+  "proposta", "projeto_2d", "projeto_3d", "contrato", "reuniao_alinhamento", "detalhamento", "pintura",
+  "comunicacao_visual", "detalhamento_finalizado", "orcamento", "instalacao", "finalizacao",
+];
+
+/**
+ * Onde o negócio está no funil: a última etapa já mexida; se ela estiver concluída, a seguinte.
+ * Nada mexido = Lead (null). Negócio fechado fica no mínimo em Contrato.
+ */
+export function etapaAtual(etapas, statusComercial) {
+  const status = Object.fromEntries(etapas.filter((e) => e.status).map((e) => [e.tipo, e.status]));
+  let i = -1;
+  ORDEM_ETAPAS.forEach((t, k) => {
+    if (status[t] && status[t] !== "nao_iniciada") i = k;
+  });
+  if (i >= 0 && status[ORDEM_ETAPAS[i]] === "concluido" && i < ORDEM_ETAPAS.length - 1) i++;
+  if (statusComercial === "fechado") i = Math.max(i, ORDEM_ETAPAS.indexOf("contrato"));
+  return i < 0 ? null : ORDEM_ETAPAS[i];
+}
+
 /** Fornecedor → colunas do Notion que viram o pedido dele. */
 const FORNECEDORES = {
   Tempo: { status: "Pedido Tempo", entrega: "Entrega Tempo" },
@@ -156,6 +176,8 @@ export function mapearLead(pagina) {
   }
   const instalacao = txt(v("Mariana/Instalação"));
   if (instalacao) etapas.push({ tipo: "instalacao", observacao: instalacao });
+
+  projeto.etapa_atual = etapaAtual(etapas, projeto.status_comercial);
 
   const pedidos = [];
   for (const [fornecedor, c] of Object.entries(FORNECEDORES)) {

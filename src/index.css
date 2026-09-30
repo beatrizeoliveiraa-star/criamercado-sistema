@@ -86,5 +86,36 @@ h2, h3 {
     display: inline-flex; align-items: center; gap: 6px; border-radius: 8px; padding: 8px 14px;
     font-size: 14px; font-weight: 500; border: 1px solid var(--borda); background: var(--cartao);
   }
+  .lateral { background: #242824; color: #cfd6ce; }
+  .aba {
+    display: inline-flex; align-items: baseline; gap: 8px; border: 1px solid var(--borda); background: var(--cartao);
+    border-radius: 999px; padding: 6px 14px; font-size: 14px;
+  }
+  .aba-ativa { background: #242824; border-color: #242824; color: #efefef; }
+  .aba-verde { background: var(--color-marca); border-color: var(--color-marca); color: #fff; }
+  @media (prefers-color-scheme: dark) {
+    .aba-ativa { background: #efefef; border-color: #efefef; color: #242824; }
+  }
+  /* Funil de etapas em setas, como no Bitrix. */
+  .seta {
+    flex: 1 0 auto; white-space: nowrap; font-size: 12px; padding: 7px 14px 7px 16px;
+    background: var(--borda); color: var(--texto-2);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%);
+  }
+  .seta:first-child { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%); border-radius: 6px 0 0 6px; padding-left: 12px; }
+  .seta:not(:disabled) { cursor: pointer; }
+  .seta:not(:disabled):hover { filter: brightness(0.93); }
+  .seta:focus-visible { outline: 2px solid var(--color-marca); outline-offset: 2px; }
+  .seta-feita { background: var(--color-marca); color: #fff; }
+  .seta-atual { background: #242824; color: #fff; font-weight: 600; }
+  @media (prefers-color-scheme: dark) {
+    .seta-atual { background: #efefef; color: #242824; }
+  }
+  .font-titulo { font-family: var(--font-titulo); }
   .textura { background: #242824 url("/marca/textura.svg") center / 900px auto repeat; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gaveta { animation: gaveta-entra .18s ease-out; }
+  @keyframes gaveta-entra { from { transform: translateX(32px); opacity: .6; } }
 }

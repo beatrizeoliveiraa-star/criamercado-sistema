@@ -16,7 +16,7 @@ export function Novo() {
   const [enviando, setEnviando] = useState(false);
   const campo = (k: keyof typeof f) => ({ value: f[k], onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setF({ ...f, [k]: e.target.value }) });
 
-  if (!temPapel(usuario, "comercial")) return <Erro msg="Só o comercial cadastra leads." />;
+  if (!temPapel(usuario, "comercial")) return <Erro msg="Só o comercial cadastra negócios." />;
 
   const salvar = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export function Novo() {
         },
         projeto: { plano: (f.plano || null) as Plano | null, valor_proposta_centavos: Number.isFinite(valor) ? valor : null, data_apresentacao: f.apresentacao || null },
       });
-      navegar(`/projetos/${id}`);
+      navegar(`/negocios/${id}`);
     } catch (err) {
       setErro(err instanceof Error ? err.message : String(err));
       setEnviando(false);
@@ -41,7 +41,7 @@ export function Novo() {
 
   return (
     <>
-      <Titulo>Novo lead</Titulo>
+      <Titulo>Novo negócio</Titulo>
       <form onSubmit={salvar} className="cartao p-5 max-w-xl flex flex-col gap-4">
         <label className="text-sm flex flex-col gap-1">
           Cliente

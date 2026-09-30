@@ -1,12 +1,12 @@
 import { NavLink, Outlet } from "react-router";
-import { Building2, Columns3, FolderKanban, LogOut, Plus } from "lucide-react";
+import { Briefcase, Building2, CheckSquare, LogOut, Plus } from "lucide-react";
 import { dados } from "@/lib/dados";
 import { NOME_PAPEL } from "@/lib/dominio";
 import { useSessao } from "@/lib/sessao";
 
 const MENU = [
-  { para: "/", nome: "Leads", icone: Columns3 },
-  { para: "/projetos", nome: "Projetos", icone: FolderKanban },
+  { para: "/", nome: "Negócios", icone: Briefcase },
+  { para: "/tarefas", nome: "Tarefas", icone: CheckSquare },
   { para: "/clientes", nome: "Clientes", icone: Building2 },
 ];
 
@@ -14,10 +14,9 @@ export function Layout() {
   const { usuario } = useSessao();
   return (
     <div className="min-h-dvh md:flex">
-      <aside className="hidden md:flex w-56 shrink-0 flex-col border-r borda p-4 gap-1 sticky top-0 h-dvh">
+      <aside className="lateral hidden md:flex w-56 shrink-0 flex-col p-4 gap-1 sticky top-0 h-dvh">
         <div className="px-2 pb-6 pt-2">
-          <img src="/marca/logo-escuro.svg" alt="CRIAMERCADO" className="logo-escuro h-7" />
-          <img src="/marca/logo-claro.svg" alt="CRIAMERCADO" className="logo-claro h-7" />
+          <img src="/marca/logo-claro.svg" alt="CRIAMERCADO" className="h-7" />
         </div>
         {MENU.map(({ para, nome, icone: Icone }) => (
           <NavLink
@@ -25,22 +24,22 @@ export function Layout() {
             to={para}
             end={para === "/"}
             className={({ isActive }) =>
-              `flex items-center gap-2 rounded-lg px-2 py-2 text-sm ${isActive ? "bg-marca/10 text-marca font-semibold" : "texto-2 hover:bg-black/5 dark:hover:bg-white/5"}`
+              `flex items-center gap-2 rounded-lg px-2 py-2 text-sm ${isActive ? "bg-marca/20 text-white font-semibold" : "hover:bg-white/5"}`
             }
           >
             <Icone size={18} /> {nome}
           </NavLink>
         ))}
         <NavLink to="/novo" className="botao mt-3 justify-center">
-          <Plus size={16} /> Novo lead
+          <Plus size={16} /> Novo negócio
         </NavLink>
-        <div className="mt-auto px-2 text-xs texto-2">
+        <div className="mt-auto px-2 text-xs">
           {dados.modo === "demo" ? (
-            <p className="rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 p-2 mb-2">
+            <p className="rounded-md bg-white/5 p-2 mb-2">
               Modo demonstração: dados fictícios, nada é salvo.
             </p>
           ) : null}
-          <p className="font-medium" style={{ color: "var(--texto)" }}>{usuario?.nome || usuario?.email}</p>
+          <p className="font-medium text-white">{usuario?.nome || usuario?.email}</p>
           <p>{usuario?.papeis.map((p) => NOME_PAPEL[p]).join(", ")}</p>
           {dados.modo === "real" ? (
             <button onClick={() => dados.sair()} className="mt-2 inline-flex items-center gap-1 hover:underline">
@@ -55,7 +54,7 @@ export function Layout() {
       </main>
 
       <nav className="md:hidden fixed bottom-0 inset-x-0 border-t borda grid grid-cols-4 text-[11px]" style={{ background: "var(--cartao)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-        {[...MENU.slice(0, 2), { para: "/novo", nome: "Novo lead", icone: Plus }, ...MENU.slice(2)].map(({ para, nome, icone: Icone }) => (
+        {[...MENU.slice(0, 2), { para: "/novo", nome: "Novo", icone: Plus }, ...MENU.slice(2)].map(({ para, nome, icone: Icone }) => (
           <NavLink
             key={para}
             to={para}

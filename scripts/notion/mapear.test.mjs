@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { mapearCompromisso, mapearLead, mapearTarefa, separarTitulo } from "./mapear.mjs";
+import { etapaAtual, mapearCompromisso, mapearLead, mapearTarefa, separarTitulo } from "./mapear.mjs";
 
 const titulo = (s) => ({ type: "title", title: [{ plain_text: s }] });
 const texto = (s) => ({ type: "rich_text", rich_text: [{ plain_text: s }] });
@@ -82,6 +82,22 @@ describe("mapearLead", () => {
     expect(p.IMF).toMatchObject({ status: "concluido", codigo: "4521", orcamento_status: "em_andamento", orcamento_data: "2026-06-03" });
     expect(p["Pinhões"]).toMatchObject({ status: "em_andamento", orcamento_status: "concluido" });
     expect(p.Tempo.status).toBe("sem_pedido");
+  });
+});
+
+describe("etapaAtual", () => {
+  it("lead sem nada mexido fica em Lead", () => {
+    expect(etapaAtual([], "em_andamento")).toBeNull();
+  });
+  it("etapa concluída passa para a seguinte", () => {
+    expect(etapaAtual([{ tipo: "proposta", status: "concluido" }, { tipo: "projeto_2d", status: "aprovacao_interna" }], "em_andamento")).toBe("projeto_2d");
+    expect(etapaAtual([{ tipo: "projeto_3d", status: "concluido" }], "follow_up")).toBe("contrato");
+  });
+  it("negócio fechado fica no mínimo em Contrato", () => {
+    expect(etapaAtual([{ tipo: "proposta", status: "concluido" }], "fechado")).toBe("contrato");
+  });
+  it("contrato concluído e reunião não realizada: está na Reunião", () => {
+    expect(mapearLead(lead).projeto.etapa_atual).toBe("reuniao_alinhamento");
   });
 });
 

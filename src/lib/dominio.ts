@@ -25,6 +25,8 @@ export type EtapaStatus =
   | "concluido"
   | "desistencia";
 export type PedidoStatus = "nao_iniciada" | "em_andamento" | "concluido" | "sem_pedido";
+export type TarefaStatus = "nao_iniciada" | "em_andamento" | "concluido";
+export type AtividadeTipo = "comentario" | "ligacao";
 
 export interface Usuario {
   id: string;
@@ -83,6 +85,8 @@ export interface Projeto {
   data_fechamento: string | null;
   data_entrega: string | null;
   observacoes: string | null;
+  /** Onde o negócio está no funil. null = Lead. */
+  etapa_atual: EtapaTipo | null;
 }
 
 export interface ProjetoResumo extends Projeto {
@@ -93,11 +97,33 @@ export interface ProjetoResumo extends Projeto {
 export interface Historico {
   id: number;
   tabela: string;
+  registro_id: string;
   campo: string;
   de: string | null;
   para: string | null;
   usuario: string | null;
   em: string;
+}
+
+export interface Atividade {
+  id: string;
+  tipo: AtividadeTipo;
+  texto: string;
+  usuario: string | null;
+  em: string;
+}
+
+export interface Tarefa {
+  id: string;
+  titulo: string;
+  status: TarefaStatus;
+  prazo: string | null;
+  pessoas: string[];
+  projeto_id: string | null;
+  criado_em: string;
+  concluida_em: string | null;
+  /** Só na lista geral de tarefas. */
+  negocio?: { id: string; nome: string } | null;
 }
 
 export interface ProjetoCompleto {
@@ -107,6 +133,8 @@ export interface ProjetoCompleto {
   etapas: Etapa[];
   pedidos: Pedido[];
   historico: Historico[];
+  atividades: Atividade[];
+  tarefas: Tarefa[];
 }
 
 // ---------------------------------------------------------------- nomes
@@ -118,6 +146,9 @@ export const NOME_STATUS_COMERCIAL: Record<StatusComercial, string> = {
   follow_up: "Follow up",
   fechado: "Fechado",
 };
+
+/** Status que contam como lead (ainda em negociação). */
+export const eLead = (s: StatusComercial) => s !== "fechado" && s !== "nao_concluida";
 
 export const NOME_PLANO: Record<Plano, string> = {
   representacao_mg: "Representação MG",
@@ -209,6 +240,12 @@ export function temPapel(u: Usuario | null, p: Papel) {
 export function reais(centavos: number | null) {
   if (centavos == null) return "";
   return (centavos / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+}
+
+/** Hoje no formato AAAA-MM-DD, no fuso de quem usa. */
+export function hoje() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export function dataCurta(iso: string | null) {

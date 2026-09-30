@@ -6,8 +6,12 @@ App web que também instala no celular, com a identidade do Guia de Uso da Marca
 ## Fase 1 (esta versão)
 
 - Login e papéis (Administração, Comercial, Projetos, Compras, Instalação), com as permissões no próprio banco.
-- Painel, Leads (quadro por status), Não fechados, Clientes, Novo lead e a ficha de cada projeto com etapas,
-  pedidos e histórico de mudanças.
+- Negócios (modelo Bitrix, sem kanban): uma lista com abas Todos, Leads, Fechados e Não fechados, busca e filtros
+  de etapa e plano. Cada linha abre o card do negócio com o funil de etapas (clique para mover), dados do negócio e
+  do cliente, pedidos, situação de cada etapa, tarefas abertas e a linha do tempo (comentários, ligações, tarefas
+  e todas as mudanças).
+- Tarefas: tudo que está em aberto, separado em Atrasadas, Hoje, Próximos dias e Sem prazo.
+- Clientes e Novo negócio.
 - Importação do Notion (`scripts/notion`): LEADS, Calendário, Compromissos do Wander e EM ANDAMENTO.
 - Sem Supabase configurado, o app abre em **modo demonstração** com clientes fictícios.
 
